@@ -31,6 +31,8 @@ class SpamFilter:
             self.likelihoods["spam"][word] = (self.word_counts["spam"][word] + self.k) / (self.total_words["spam"] + self.k * vocab_size)
             self.likelihoods["ham"][word] = (self.word_counts["ham"][word] + self.k) / (self.total_words["ham"] + self.k * vocab_size)
     
+    # Función que implementa la decisión del teorema de Bayes
+    # P(C | M) ∝ P(C) * Π P(w_i | C)
     def predict(self, message: str) -> str:
         words = clean_message(message)
         
@@ -42,6 +44,7 @@ class SpamFilter:
                 log_prob_spam += math.log(self.likelihoods["spam"][word])
                 log_prob_ham += math.log(self.likelihoods["ham"][word])
         
+        # argmax_c P(c | M)
         return "spam" if log_prob_spam > log_prob_ham else "ham"
     
     def evaluate(self, test_data) -> dict:

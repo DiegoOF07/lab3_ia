@@ -15,7 +15,7 @@ def main():
     print(f"P(Ham) = {model.priors['ham']:.4f}")
 
     df_likelihoods = model.get_likelihoods()
-    print(df_likelihoods.head())
+    print(f'\n{df_likelihoods.head()}\n')
 
     test_messages = [
         "Congratulations! You won a free prize. Click here now!",
